@@ -1,5 +1,6 @@
 //client side js
-const socket = io('http://localhost:3007')
+// const socket = io('http://localhost:3007')
+const socket = io('https://chat-wth-it.herokuapp.com/:3007')
 const messageContainer  = document.getElementById('message-container')
 const messageForm = document.getElementById('send-container')
 const messageInput = document.getElementById('message-input')
