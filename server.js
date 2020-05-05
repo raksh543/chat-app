@@ -1,10 +1,12 @@
-const io=require('socket.io')(3007)
 const express=require('express')
+const app= express()
+const server=require('http').Server(app)
+const io= module.exports.io =require('socket.io')(server)
 const path=require('path')
 
 const port = process.env.PORT || 3070
 
-const app= express()
+
 
 const publicDirectoryPath=path.join(__dirname)
 
@@ -40,6 +42,6 @@ app.get('/', (req,res)=>{
     res.render('index')
 })
 
-app.listen(port, ()=>{
+server.listen(port, ()=>{
     console.log('Server is up on the port' + port)
 })
