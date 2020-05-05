@@ -67,8 +67,8 @@ messageForm.addEventListener('submit', e =>{
     messageInput.value = '' //to empty the input when message is sent
 })
 
-socket.on('private-message',()=>{
-    appendMessage('<span class="private">' + data.name + ' : ' + data.message + "</span><br/>") 
+socket.on('private-message',(data)=>{
+    appendMessage('<span class="private">' + data.nick + ' : ' + data.message + "</span><br/>") 
 })
 
 function appendMessage(message){

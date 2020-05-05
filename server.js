@@ -16,20 +16,21 @@ app.use(express.static(publicDirectoryPath))
 
 const users = {}
 
-nicknames=[]
+// nicknames=[]
 
 //every time user loads website this function is called
 io.sockets.on('connection', socket =>{
     // socket.emit('chat-message', 'Helloworld')
     socket.on('new-user', (data,callback)=>{
-        if(nicknames.indexOf(data) != -1){
+        if(data in users){
             callback(false)
         }else{
             callback(true)
             socket.broadcast.emit( 'user-connected', data)
             socket.nickname = data
-            nicknames.push(socket.nickname)
-            io.sockets.emit('usernames', nicknames)
+            users[socket.nickname] = socket // using nickname as key and saving socket in there
+            // nicknames.push(socket.nickname)
+            io.sockets.emit('usernames', Object.keys(users))
         }
     })
 
@@ -53,20 +54,21 @@ io.sockets.on('connection', socket =>{
         if(msg.substr(0,3) === '/w '){
             msg = msg.substr(3) //msg is 3 onwards
             var ind= msg.indexOf(' ')
-            if(ind != -1){
+            if(ind !== -1){
                 var name = msg.substr(0, ind)
                 console.log(name)
                 var msg = msg.substr(ind+1)
                 console.log(msg)
-                if(name in nicknames){
-                    name.emit('private-message', {message: msg, name: users[socket.id]})
+                if(name in users){
+                    users[name].emit('private-message', {message: message, nick: socket.nickname})
                     console.log('whisper')
                 }else{
                     callback('Error! Enter a valid user')
                 }
                 
             }else{
-                msg = 'You have been just pinged!'
+                callback('Error! Please enter a message to be sent')
+                // msg = 'You have been just pinged!'
             }
             
         }else{
@@ -80,8 +82,9 @@ io.sockets.on('connection', socket =>{
 
     socket.on('disconnect', (data)=>{
         if(!socket.nickname) return
-        nicknames.splice(nicknames.indexOf(socket.nickname), 1)
-        io.sockets.emit('usernames', nicknames)
+        delete users[socket.nickname]
+        // nicknames.splice(nicknames.indexOf(socket.nickname), 1)
+        io.sockets.emit('usernames', Object.keys(users))
         // socket.broadcast.emit('user-disconnected', users[socket.id])
         // delete users[socket.id]
     })
