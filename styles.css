@@ -2,3 +2,27 @@
     position: fixed;
     bottom: 10px;
 }
+
+.error{
+    color: red;
+}
+
+.private{
+    color:gray;
+    font-style: italic;
+}
+.online-users{
+    top:0;
+    float: right;
+    width:20%;
+    border: 1px solid black;
+    height: 100%;
+}
+
+.chat-window{
+    padding-left: 10%;
+}
+
+#content-wrap{
+  
+}
