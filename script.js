@@ -68,12 +68,12 @@ messageForm.addEventListener('submit', e =>{
 })
 
 socket.on('private-message',(data)=>{
-    appendMessage('<span class="private">' + data.nick + ' : ' + data.message + "</span><br/>") 
+    appendMessage('<span class="private">' + data.nick + ' : ' + data.message + '</span><br/>') 
 })
 
 function appendMessage(message){
     const messageElement= document.createElement('div')
-    messageElement.innerText = message
+    messageElement.innerHTML = message
     messageContainer.append(messageElement)
 }
 

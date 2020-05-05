@@ -51,29 +51,70 @@ io.sockets.on('connection', socket =>{
 
     socket.on('send-chat-message', (message , callback) =>{
         var msg=message.trim()
-        if(msg.substr(0,3) === '/w '){
-            msg = msg.substr(3) //msg is 3 onwards
-            var ind= msg.indexOf(' ')
-            if(ind !== -1){
-                var name = msg.substr(0, ind)
-                console.log(name)
-                var msg = msg.substr(ind+1)
-                console.log(msg)
-                if(name in users){
-                    users[name].emit('private-message', {message: message, nick: socket.nickname})
-                    console.log('whisper')
-                }else{
-                    callback('Error! Enter a valid user')
-                }
-                
-            }else{
-                callback('Error! Please enter a message to be sent')
-                // msg = 'You have been just pinged!'
+        var array=message.split('@')
+        var n=array.length;
+        // console.log(n)
+        // console.log(array)
+
+        var i=1;
+        var names=[];
+        var actualmsg=[];
+        for(i;i<n;i++){
+                if(array[i]!=null){
+                    // console.log(array[i]+"***************")
+                    var arr=array[i].split(' ')
+                    names.push(arr[0]);
+                    var m=arr.length;
+                    for(j=1;j<m;j++){
+                        actualmsg.push(arr[j])
+                    }
+                    
+                    
             }
-            
-        }else{
+        }
+
+        if(names.length>0){
+
+        for(var j=0; j<names.length; j++){
+            if(names[j] in users){
+
+                //if you want to remove tags and send msg text only
+                // users[names[j]].emit('private-message', {message: actualmsg.join(' '), nick: socket.nickname})
+
+                //else
+                users[names[j]].emit('private-message', {message: message, nick: socket.nickname})
+            }else{
+                callback( 'Error!' + names[j] +' is not a valid user')
+            }
+        }}else{
             socket.broadcast.emit('chat-message', {message: message, nick: socket.nickname})   //msg is sent to all the other persons except the sender
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        // if(array[0].substr(0,1) === '@'){
+        //     msg = msg.substr(0) //msg is 3 onwards
+        //     var ind= msg.indexOf('@'+1)
+        //     console.log(ind)
+        //     if(ind !== -1){
+        //         var name = msg.substr(0, ind)
+        //         console.log(name)
+        //         var msg = msg.substr(ind+1)
+        //         console.log(msg)
+        //         if(name in users){
+        //             users[name].emit('private-message', {message: message, nick: socket.nickname})
+        //             console.log('whisper')
+        //         }else{
+        //             callback('Error! Enter a valid user')
+        //         }
+                
+        //     }else{
+        //         callback('Error! Please enter a message to be sent')
+        //         // msg = 'You have been just pinged!'
+        //     }
+            
+        // }else{
+        //     socket.broadcast.emit('chat-message', {message: message, nick: socket.nickname})   //msg is sent to all the other persons except the sender
+        // }
         // socket.join('b')
         // io.to(b).emit('chat-message', {message: message, name: users[socket.id]})
 
