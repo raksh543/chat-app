@@ -1,11 +1,16 @@
 const io=require('socket.io')(3007)
 const express=require('express')
+const path=require('path')
 
 const port = process.env.PORT || 3070
 
-// const app= express()
+const app= express()
 
-// app.set('view engine', 'hbs')
+const publicDirectoryPath=path.join(__dirname)
+
+app.set('view engine', 'html')
+
+app.use(express.static(publicDirectoryPath))
 
 const users = {}
 
@@ -31,10 +36,10 @@ io.on('connection', socket =>{
 
 
 
-// app.get('/', (req,res)=>{
-//     res.render('index')
-// })
+app.get('/', (req,res)=>{
+    res.render('index')
+})
 
-// app.listen(port, ()=>{
-//     console.log('Server is up on the port' + port)
-// })
+app.listen(port, ()=>{
+    console.log('Server is up on the port' + port)
+})
