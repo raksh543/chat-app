@@ -60,7 +60,7 @@ messageForm.addEventListener('submit', e =>{
     //to send information from client to server
     // socket.emit('send-chat-message', {to:message, message:message})
     socket.emit('send-chat-message', message , function(data){
-        appendMessage(`<span class="error">` + data + `</span>`)
+        appendMessage(`<center><span class="error">` + data + `</span></center>`)
     })
 
     

@@ -85,7 +85,7 @@ io.sockets.on('connection', socket =>{
                 //else
                 users[names[j]].emit('private-message', {message: message, nick: socket.nickname})
             }else{
-                callback( 'Error!' + names[j] +' is not a valid user')
+                callback( 'Error! <b>' + names[j] +'</b> is not a valid user')
             }
         }}else{
             socket.broadcast.emit('chat-message', {message: message, nick: socket.nickname})   //msg is sent to all the other persons except the sender
