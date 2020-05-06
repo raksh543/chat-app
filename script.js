@@ -24,7 +24,7 @@ nickForm.addEventListener('submit', e=>{
         if(data){
             document.getElementById('nickWrap').style.display = 'none'
             document.getElementById('content-wrap').style.display = 'block '
-            appendMessage('You joined')
+            appendMessage('<center><span class="general">'+'You joined'+'</span><center>')
         }else{
             nickError.innerHTML= 'That username is already taken! Try again.'
         }
@@ -42,21 +42,21 @@ socket.on('usernames',(data)=>{
 
 socket.on('chat-message', data =>{
     // console.log(data)
-    appendMessage('<span class="public">' + data.nick + ' : ' + data.message + '</span>') 
+    appendMessage('<span class="public received">' + data.nick + ' : ' + data.message + '</span><br/><br>') 
 })
 
 socket.on('user-connected', name =>{
-    appendMessage( name + ' connected')
+    appendMessage( '<center><span class="general" style="color:green">' + name + ' connected'+ '</span></center>')
 })
 
 socket.on('user-disconnected', name =>{
-    appendMessage(name + ' left')
+    appendMessage('<center><span class="general" style="color:red">'+name + ' left'+ '</span><center>')
 })
 
 messageForm.addEventListener('submit', e =>{
     e.preventDefault()
     const message = messageInput.value
-    appendMessage('You : ' + message)
+    appendMessage('<span class="mytext sent">'+'You : ' + message+ '</span><br/><br>')
     //to send information from client to server
     // socket.emit('send-chat-message', {to:message, message:message})
     socket.emit('send-chat-message', message , function(data){
@@ -68,7 +68,7 @@ messageForm.addEventListener('submit', e =>{
 })
 
 socket.on('private-message',(data)=>{
-    appendMessage('<span class="private">' + data.nick + ' : ' + data.message + '</span><br/>') 
+    appendMessage('<span class="private">' + data.nick + ' : ' + data.message + '</span><br/><br>') 
 })
 
 function appendMessage(message){

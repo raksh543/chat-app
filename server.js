@@ -8,7 +8,8 @@ const port = process.env.PORT || 3070
 
 
 
-const publicDirectoryPath=path.join(__dirname)
+const publicDirectoryPath=path.join(__dirname )
+
 
 app.set('view engine', 'html')
 

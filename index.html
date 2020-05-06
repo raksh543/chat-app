@@ -2,9 +2,13 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width,initial-scale-1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="icon" href="/img/icon.png">
     <link rel="stylesheet" href="styles.css">
     <title>
         Chat app
@@ -15,26 +19,38 @@
 </head>
 
 <body>
-    <div id="nickWrap">
-        <p>Enter a username:</p>
-        <p id="nickError"></p>
-        <form id="setNick">
-            <input type="text" id="nickname"></input>
-            <input type="submit">
-        </form>
-    </div>
-    <div id="content-wrap">
-        <div class="chat-window">
-            <div id="message-container"></div>
-            <form id="send-container">
-                <input type="text" id="message-input">
-                <button type="submit" id="send-button">Send</button>
-            </form>
+    <div class="container">
+        <div class="row" style="padding-left: 35%;margin-top: 10%;">
+            <div id="nickWrap">
+                <p>Enter a username:</p>
+                <p id="nickError"></p>
+                <form id="setNick">
+                    <input type="text" id="nickname"></input><br><br>
+                    <input type="submit">
+                </form>
+            </div>
         </div>
-        <div class="online-users">
-            <p>Available users:</p>
-            <p><i>Users can be texted privately</i></p>
-            <div id="users"></div>
+    </div>
+    <div class="container">
+        <div class="row" id="content-wrap">
+            <div class="col" style="width: 50%; float: left;border: 1px solid black;height: 100%;">
+                <div class="chat-window">
+                    <div id="message-container"></div>
+                    <form id="send-container">
+                        <input type="text" id="message-input">
+                        <button type="submit" id="send-button">Send</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col" style="width: 50%; float: right;">
+                <div class="online-users" style="padding: 20px;">
+                    <p>Available users:</p>
+                    <p><i>Users can be texted privately and<b> usernames are case sensetive</b></i></p>
+                    <p style="background-color: rgb(255, 255, 200); color: rgb(129, 102, 13);"> Example: @abc @xyz hii
+                    </p>
+                    <div id="users" style="color: rgb(12, 197, 12);"></div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
